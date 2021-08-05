@@ -29,6 +29,8 @@ class GeneralizedRCNN(nn.Module):
     3. Per-region feature extraction and prediction
     """
 
+    mask_threshold = 0.5
+
     @configurable
     def __init__(
         self,
@@ -226,8 +228,8 @@ class GeneralizedRCNN(nn.Module):
         images = ImageList.from_tensors(images, self.backbone.size_divisibility)
         return images
 
-    @staticmethod
-    def _postprocess(instances, batched_inputs: List[Dict[str, torch.Tensor]], image_sizes):
+    @classmethod
+    def _postprocess(cls, instances, batched_inputs: List[Dict[str, torch.Tensor]], image_sizes):
         """
         Rescale the output instances to the target size.
         """
@@ -238,7 +240,7 @@ class GeneralizedRCNN(nn.Module):
         ):
             height = input_per_image.get("height", image_size[0])
             width = input_per_image.get("width", image_size[1])
-            r = detector_postprocess(results_per_image, height, width)
+            r = detector_postprocess(results_per_image, height, width, mask_threshold=cls.mask_threshold)
             processed_results.append({"instances": r})
         return processed_results
 
