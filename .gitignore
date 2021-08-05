@@ -43,6 +43,7 @@ model_ts*.txt
 .idea
 .vscode
 _darcs
+tags
 
 # project dirs
 /detectron2/model_zoo/configs
