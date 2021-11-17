@@ -2,6 +2,8 @@
 
 FAIR's [Detectron 2](https://github.com/facebookresearch/detectron2) is phenomenal. I've forked it here so I can modify it and make it do what I want in inelegant (read: hacky) ways.
 
+More information on the original project in the [original readme](README_OLD.md)
+
 # Changes
 
 1. Setting/disabling model threshold
