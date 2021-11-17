@@ -96,7 +96,7 @@ class ImageList(object):
         if size_divisibility > 1:
             stride = size_divisibility
             # the last two dims are H,W, both subject to divisibility requirement
-            max_size = (max_size + (stride - 1)) // stride * stride
+            max_size = torch.div(max_size + (stride - 1), stride, rounding_mode='trunc') * stride
 
         # handle weirdness of scripting and tracing ...
         if torch.jit.is_scripting():
