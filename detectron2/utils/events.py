@@ -103,7 +103,7 @@ class JSONWriter(EventWriter):
         self._last_write = -1
 
     def write(self):
-        storage = get_event_storage()
+        storage = get_event_storage()  # type: EventStorage
         to_save = defaultdict(dict)
 
         for k, (v, iter) in storage.latest_with_smoothing_hint(self._window_size).items():
